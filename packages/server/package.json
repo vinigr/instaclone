@@ -1,4 +1,11 @@
 {
   "name": "@instaclone/server",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.13.4"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.13.4"
+  }
 }
