@@ -13,4 +13,5 @@ dotenvSafe.config({
 
 export const config = {
   PORT: process.env.PORT || 9950,
+  MONGO_URL: process.env.MONGO_URL || "mongodb://localhost:27017/instaclone",
 };
