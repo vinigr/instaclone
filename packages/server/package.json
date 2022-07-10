@@ -2,10 +2,15 @@
   "name": "@instaclone/server",
   "version": "1.0.0",
   "license": "MIT",
+  "private": true,
   "scripts": {
-    "start": "webpack --watch --progress --config webpack.config.js"
+    "build": "npm run clear && babel src --extensions \".es6,.js,.es,.jsx,.mjs,.ts\" --ignore *.spec.js --out-dir dist --copy-files",
+    "clear": "rm -rf ./dist",
+    "dev": "webpack --watch --progress --config webpack.config.js",
+    "start": "npm run build && node dist/index.js"
   },
   "dependencies": {
+    "babel-core": "^6.26.3",
     "dotenv-safe": "^8.2.0",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
@@ -14,6 +19,8 @@
   "devDependencies": {
     "@babel/cli": "^7.18.6",
     "@babel/core": "^7.18.6",
+    "@babel/preset-env": "^7.18.6",
+    "@babel/preset-typescript": "^7.18.6",
     "@types/dotenv-safe": "^8.1.2",
     "@types/koa": "^2.13.4",
     "@types/koa-bodyparser": "^4.3.7",
