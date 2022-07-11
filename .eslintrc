@@ -2,7 +2,8 @@
   "env": {
     "browser": true,
     "es2021": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "extends": ["plugin:react/recommended", "airbnb", "prettier"],
   "parser": "@typescript-eslint/parser",
@@ -13,7 +14,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint"],
+  "plugins": ["react", "@typescript-eslint", "jest"],
   "rules": {
     "import/prefer-default-export": "off",
     "import/extensions": [
@@ -30,7 +31,9 @@
     "no-return-assign": "off",
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["error"],
-    "func-names": "off"
+    "func-names": "off",
+    "arrow-body-style": "off",
+    "no-underscore-dangle": "off"
   },
   "settings": {
     "import/resolver": {
