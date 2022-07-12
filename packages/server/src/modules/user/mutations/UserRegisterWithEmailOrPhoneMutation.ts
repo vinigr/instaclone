@@ -8,7 +8,7 @@ import UserModel from "../UserModel";
 import UserType from "../UserType";
 
 export default mutationWithClientMutationId({
-  name: "UserRegisterWithEmail",
+  name: "UserRegisterWithEmailOrPhone",
   inputFields: {
     name: {
       type: new GraphQLNonNull(GraphQLString),
@@ -17,22 +17,46 @@ export default mutationWithClientMutationId({
       type: new GraphQLNonNull(GraphQLString),
     },
     email: {
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
+    },
+    phone: {
+      type: GraphQLString,
     },
     password: {
       type: new GraphQLNonNull(GraphQLString),
     },
   },
-  mutateAndGetPayload: async ({ name, username, email, password }) => {
-    const hasUserSameEmail = await UserModel.countDocuments({
-      email: email.trim().toLowerCase(),
-      status: 1,
-    });
-
-    if (hasUserSameEmail) {
+  mutateAndGetPayload: async ({ name, username, email, phone, password }) => {
+    if (!phone && !email) {
       return {
-        error: "Email already in use",
+        error: "Phone or email is required",
       };
+    }
+
+    if (phone) {
+      const hasUserSamePhone = await UserModel.countDocuments({
+        phone: phone.trim(),
+        status: 1,
+      });
+
+      if (hasUserSamePhone) {
+        return {
+          error: "Phone already in use",
+        };
+      }
+    }
+
+    if (email) {
+      const hasUserSameEmail = await UserModel.countDocuments({
+        email: email.trim().toLowerCase(),
+        status: 1,
+      });
+
+      if (hasUserSameEmail) {
+        return {
+          error: "Email already in use",
+        };
+      }
     }
 
     const hasUserSameUsername = await UserModel.countDocuments({
@@ -49,6 +73,7 @@ export default mutationWithClientMutationId({
       name,
       username,
       email,
+      phone,
       password,
     }).save();
 
