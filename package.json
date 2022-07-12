@@ -16,6 +16,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.18.6",
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
     "@types/jest": "^28.1.4",
@@ -33,6 +34,7 @@
     "jest": "^28.1.2",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
+    "ts-jest": "^28.0.5",
     "typescript": "^4.7.4"
   },
   "lint-staged": {

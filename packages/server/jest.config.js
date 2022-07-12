@@ -7,7 +7,7 @@ module.exports = {
   globalTeardown: "<rootDir>/test/environment/globalTeardown.ts",
   setupFilesAfterEnv: ["<rootDir>/test/setupFile.ts"],
   resetModules: false,
-  reporters: ["default", "jest-junit"],
+  reporters: ["default"],
   testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.(js|ts|tsx)?$",
   moduleFileExtensions: ["ts", "js", "tsx", "json"],
 };
