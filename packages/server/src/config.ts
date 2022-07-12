@@ -13,5 +13,6 @@ dotenvSafe.config({
 
 export const config = {
   PORT: process.env.PORT || 9950,
+  JWT_SECRET: process.env.JWT_SECRET || "secret_jwt",
   MONGO_URL: process.env.MONGO_URL || "mongodb://localhost:27017/instaclone",
 };
