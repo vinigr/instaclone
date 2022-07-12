@@ -7,9 +7,7 @@ export = async function globalSetup() {
   (global as any).__MONGOINSTANCE = instance;
   process.env.MONGO_URI = uri.slice(0, uri.lastIndexOf("/"));
 
-  (global as any).__COUNTERS__ = {
-    user: 0,
-  };
+  (global as any).__COUNTERS__ = {};
 
   // The following is to make sure the database is clean before an test starts
   await mongoose.connect(`${process.env.MONGO_URI}/instaclone`);
