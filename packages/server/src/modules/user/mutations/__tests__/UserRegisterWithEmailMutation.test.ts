@@ -2,6 +2,7 @@ import { graphql } from "graphql";
 import { schema } from "../../../../graphql/schema/schema";
 
 import { createUser } from "../../fixtures/createUser";
+import UserModel from "../../UserModel";
 
 it("should not register with an existing email", async () => {
   const user = await createUser({
@@ -47,7 +48,7 @@ it("should not register with an existing email", async () => {
     variableValues,
   });
 
-  expect((result.data as any).UserRegisterWithEmail.token).toBe(null);
+  expect((result.data as any).UserRegisterWithEmail.token).toBeNull();
   expect((result.data as any).UserRegisterWithEmail.error).toBe(
     "Email already in use"
   );
@@ -84,7 +85,7 @@ it("should not register with an existing username", async () => {
   const variableValues = {
     name: "Test",
     username: user.username,
-    email: "test@teste.com",
+    email: "test@test.com",
     password: "123",
   };
 
@@ -96,8 +97,58 @@ it("should not register with an existing username", async () => {
     variableValues,
   });
 
-  expect((result.data as any).UserRegisterWithEmail.token).toBe(null);
+  expect((result.data as any).UserRegisterWithEmail.token).toBeNull();
   expect((result.data as any).UserRegisterWithEmail.error).toBe(
     "Username already in use"
   );
+});
+
+it("should create a new user when parameters are valid", async () => {
+  const email = "test@test.com";
+
+  // language=GraphQL
+  const query = `
+    mutation M(
+      $name: String!
+      $email: String!
+      $username: String!
+      $password: String!
+    ) {
+      UserRegisterWithEmail(input: {
+        name: $name
+        email: $email
+        username: $username
+        password: $password
+      }) {
+        token
+        error
+      }
+    }
+  `;
+
+  const rootValue = {};
+  const contextValue = {};
+  const variableValues = {
+    name: "Test",
+    username: "test",
+    email,
+    password: "123",
+  };
+
+  const result = await graphql({
+    schema,
+    source: query,
+    rootValue,
+    contextValue,
+    variableValues,
+  });
+
+  expect((result.data as any).UserRegisterWithEmail.error).toBeNull();
+  expect(typeof (result.data as any).UserRegisterWithEmail.token).toBe(
+    "string"
+  );
+
+  const user = UserModel.findOne({ email });
+
+  expect(user).not.toBeNull();
 });

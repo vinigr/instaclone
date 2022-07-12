@@ -13,3 +13,7 @@ export const getCounter = (key: string) => {
 export const restartCounters = () => {
   (global as any).__COUNTERS__ = {};
 };
+
+export const generateRandomInteger = (max = 100) => {
+  return Math.floor(Math.random() * max) + 1;
+};
