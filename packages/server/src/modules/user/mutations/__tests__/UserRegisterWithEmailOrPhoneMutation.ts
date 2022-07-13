@@ -54,6 +54,50 @@ it("should not register with an existing email", async () => {
   );
 });
 
+it("should not register with an existing email", async () => {
+  // language=GraphQL
+  const query = `
+    mutation M(
+      $name: String!
+      $email: String
+      $username: String!
+      $password: String!
+    ) {
+      UserRegisterWithEmailOrPhone(input: {
+        name: $name
+        email: $email
+        username: $username
+        password: $password
+      }) {
+        token
+        error
+      }
+    }
+  `;
+
+  const rootValue = {};
+  const contextValue = {};
+  const variableValues = {
+    name: "Test",
+    username: "test",
+    email: "teste@",
+    password: "123",
+  };
+
+  const result = await graphql({
+    schema,
+    source: query,
+    rootValue,
+    contextValue,
+    variableValues,
+  });
+
+  expect((result.data as any).UserRegisterWithEmailOrPhone.token).toBeNull();
+  expect((result.data as any).UserRegisterWithEmailOrPhone.error).toBe(
+    "Invalid email"
+  );
+});
+
 it("should not register if email or phone number is not provided", async () => {
   // language=GraphQL
   const query = `

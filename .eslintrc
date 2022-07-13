@@ -37,7 +37,8 @@
     "no-plusplus": "off",
     "no-return-await": "off",
     "no-use-before-define": "off",
-    "import/no-extraneous-dependencies": "off"
+    "import/no-extraneous-dependencies": "off",
+    "no-useless-escape": "off"
   },
   "settings": {
     "import/resolver": {

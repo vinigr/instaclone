@@ -24,6 +24,13 @@ const UserSchema = new mongoose.Schema<UserDocument>(
     email: {
       type: String,
       index: true,
+      validate: {
+        validator: (email: string) => {
+          const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+          return re.test(email);
+        },
+        message: () => "Invalid email",
+      },
     },
     phone: {
       type: String,
