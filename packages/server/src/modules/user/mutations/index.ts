@@ -1,5 +1,5 @@
-import UserRegisterWithEmail from "./UserRegisterWithEmailMutation";
+import UserRegisterWithEmailOrPhone from "./UserRegisterWithEmailOrPhoneMutation";
 
 export default {
-  UserRegisterWithEmail,
+  UserRegisterWithEmailOrPhone,
 };
