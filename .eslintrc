@@ -38,7 +38,11 @@
     "no-return-await": "off",
     "no-use-before-define": "off",
     "import/no-extraneous-dependencies": "off",
-    "no-useless-escape": "off"
+    "no-useless-escape": "off",
+    "react/jsx-filename-extension": "off",
+    "react/function-component-definition": "off",
+    "no-shadow": "off",
+    "react/button-has-type": "off"
   },
   "settings": {
     "import/resolver": {
