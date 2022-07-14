@@ -1,0 +1,61 @@
+"""The root of all... queries"""
+type Query {
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+
+  """Fetches objects given their IDs"""
+  nodes(
+    """The IDs of objects"""
+    ids: [ID!]!
+  ): [Node]!
+  me: User
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""User data"""
+type User implements Node {
+  """The ID of an object"""
+  id: ID!
+
+  """mongoose _id"""
+  _id: String
+  name: String
+  email: String
+  phone: String
+  username: String
+  createdAt: String
+  updatedAt: String
+}
+
+type Mutation {
+  UserRegisterWithEmailOrPhone(input: UserRegisterWithEmailOrPhoneInput!): UserRegisterWithEmailOrPhonePayload
+}
+
+type UserRegisterWithEmailOrPhonePayload {
+  token: String
+  me: User
+
+  """Default error field resolver."""
+  error: String
+
+  """Default success field resolver."""
+  success: String
+  clientMutationId: String
+}
+
+input UserRegisterWithEmailOrPhoneInput {
+  name: String!
+  username: String!
+  email: String
+  phone: String
+  password: String!
+  clientMutationId: String
+}
